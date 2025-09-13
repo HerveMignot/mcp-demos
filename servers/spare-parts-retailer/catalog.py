@@ -1,0 +1,73 @@
+
+SPARE_PARTS_CATALOG = [
+    {
+        "name": "ZF 8HP45 Automatic Transmission",
+        "type": "gearbox",
+        "reference_id": "ZF8HP45-001",
+        "compatibility": {"model": "Chrysler 300C", "start_year": 2012, "end_year": 2014},
+        "stock": 5,
+    },
+    {
+        "name": "Aisin AWTF-80 SC Automatic Transmission",
+        "type": "gearbox",
+        "reference_id": "AWTF80SC-001",
+        "compatibility": {"model": "Ford Focus", "start_year": 2013, "end_year": 2018},
+        "stock": 3,
+    },
+    {
+        "name": "Brembo P83045N Front Brake Pads",
+        "type": "brake pads",
+        "reference_id": "BRP83045N-001",
+        "compatibility": {"model": "Toyota Camry", "start_year": 2018, "end_year": 2023},
+        "stock": 15,
+    },
+    {
+        "name": "Bosch 3330 Premium Oil Filter",
+        "type": "oil filter",
+        "reference_id": "BOSCH3330-001",
+        "compatibility": {"model": "Honda Civic", "start_year": 2016, "end_year": 2021},
+        "stock": 30,
+    },
+    {
+        "name": "Denso 234-9005 Air-Fuel Ratio Sensor",
+        "type": "sensor",
+        "reference_id": "DENSO2349005-001",
+        "compatibility": {"model": "Lexus RX350", "start_year": 2010, "end_year": 2015},
+        "stock": 8,
+    },
+    {
+        "name": "Valeo 52285606 Clutch Kit",
+        "type": "clutch",
+        "reference_id": "VAL52285606-001",
+        "compatibility": {"model": "Volkswagen Golf", "start_year": 2015, "end_year": 2020},
+        "stock": 7,
+    },
+    {
+        "name": "Monroe 58640 Shock Absorber",
+        "type": "suspension",
+        "reference_id": "MON58640-001",
+        "compatibility": {"model": "Chevrolet Silverado", "start_year": 2014, "end_year": 2018},
+        "stock": 12,
+    },
+    {
+        "name": "Gates K060841 Serpentine Belt",
+        "type": "belt",
+        "reference_id": "GATESK060841-001",
+        "compatibility": {"model": "Dodge Ram 1500", "start_year": 2011, "end_year": 2018},
+        "stock": 25,
+    },
+    {
+        "name": "ACDelco 41-962 Professional Platinum Spark Plug",
+        "type": "spark plug",
+        "reference_id": "ACD41962-001",
+        "compatibility": {"model": "Ford F-150", "start_year": 2011, "end_year": 2014},
+        "stock": 50,
+    },
+    {
+        "name": "TYC 20-9049-00-1 Right Headlight Assembly",
+        "type": "headlight",
+        "reference_id": "TYC209049-001",
+        "compatibility": {"model": "Nissan Altima", "start_year": 2013, "end_year": 2015},
+        "stock": 9,
+    },
+]
