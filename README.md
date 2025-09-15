@@ -14,7 +14,7 @@ A simple MCP server with a single `hello` tool.
 
 ```bash
 cd servers/sample-demo
-mcp dev main.py
+mcp dev server.py
 ```
 
 ### Spare Parts Retailer
@@ -25,7 +25,7 @@ A more complex MCP server that simulates a spare parts retailer. It has tools to
 
 ```bash
 cd servers/spare-parts-retailer
-mcp dev main.py
+mcp dev server.py
 ```
 
 Note: the server will be started to be used with the debugger webapp.
@@ -56,7 +56,7 @@ The chat client requires a JSON configuration file to set up the MCP plugin and 
   "mcp_plugin": {
     "name": "SparePartsRetailer",
     "command": "uv",
-    "args": ["run", "--with", "mcp", "mcp", "run", "..\\servers\\spare-parts-retailer\\main.py"]
+    "args": ["run", "--with", "mcp", "mcp", "run", "..\servers\spare-parts-retailer\server.py"]
   },
   "chat_agent": {
     "name": "CatalogAgent",
@@ -78,3 +78,6 @@ The client will start the MCP server specified in the configuration file in the 
 
 **Remark**: Make sure to start the chat client from a directory such that any path in the agent configuration json is valid.
 In the example above, the path to the main server is correct if configuration file is read from the tools directory.
+```bash
+python .\sk_chat_client.py --config ..\servers\spare-parts-retailer\agent_config.json
+```` 
