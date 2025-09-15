@@ -1,0 +1,11 @@
+{
+  "mcp_plugin": {
+    "name": "SampleDemo",
+    "command": "uv",
+    "args": ["run", "--with", "mcp", "mcp", "run", "..\\servers\\sample-demo\\server.py"]
+  },
+  "chat_agent": {
+    "name": "SampleAgent",
+    "instructions": "A simple demo agent that can say hello."
+  }
+}
