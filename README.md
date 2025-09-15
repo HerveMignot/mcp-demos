@@ -13,7 +13,8 @@ A simple MCP server with a single `hello` tool.
 **To run this server:**
 
 ```bash
-python -m servers.sample-demo.main
+cd servers/sample-demo
+mcp dev main.py
 ```
 
 ### Spare Parts Retailer
@@ -23,14 +24,17 @@ A more complex MCP server that simulates a spare parts retailer. It has tools to
 **To run this server:**
 
 ```bash
-python -m servers.spare-parts-retailer.main
+cd servers/spare-parts-retailer
+mcp dev main.py
 ```
+
+Note: the server will be started to be used with the debugger webapp.
 
 ## Testing with the Semantic Kernel Chat Client
 
 The `tools` folder contains a chat client (`sk_chat_client.py`) that uses the [Microsoft Semantic Kernel](https://github.com/microsoft/semantic-kernel) to interact with the MCP servers.
 
-This client is configured to automatically start and connect to the **Spare Parts Retailer** server.
+The client is configured via a JSON file passed as a command-line argument.
 
 ### Prerequisites
 
@@ -43,12 +47,34 @@ AZURE_OPENAI_ENDPOINT="your_endpoint"
 AZURE_OPENAI_API_VERSION="your_api_version"
 ```
 
-### Running the Client
+### Configuration
 
-To run the chat client, execute the following command from the root of the repository:
+The chat client requires a JSON configuration file to set up the MCP plugin and the chat agent. Here is an example `agent_config.json` file:
 
-```bash
-python tools/sk_chat_client.py
+```json
+{
+  "mcp_plugin": {
+    "name": "SparePartsRetailer",
+    "command": "uv",
+    "args": ["run", "--with", "mcp", "mcp", "run", "..\\servers\\spare-parts-retailer\\main.py"]
+  },
+  "chat_agent": {
+    "name": "CatalogAgent",
+    "instructions": "Answer questions about Spare Part Availability."
+  }
+}
 ```
 
-The client will start the `spare-parts-retailer` server in the background and you will be prompted to ask questions to the chat agent.
+### Running the Client
+
+To run the chat client, execute the following command from the root of the repository, passing the path to your configuration file:
+
+```bash
+cd tools
+python ./sk_chat_client.py --config ../servers/<your-server>/agent_config.json
+```
+
+The client will start the MCP server specified in the configuration file in the background and you will be prompted to ask questions to the chat agent.
+
+**Remark**: Make sure to start the chat client from a directory such that any path in the agent configuration json is valid.
+In the example above, the path to the main server is correct if configuration file is read from the tools directory.

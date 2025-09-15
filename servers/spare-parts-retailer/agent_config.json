@@ -1,0 +1,11 @@
+{
+  "mcp_plugin": {
+    "name": "SparePartsRetailer",
+    "command": "uv",
+    "args": ["run", "--with", "mcp", "mcp", "run", "..\\servers\\spare-parts-retailer\\main.py"]
+  },
+  "chat_agent": {
+    "name": "CatalogAgent",
+    "instructions": "Answer questions about Spare Part Availability."
+  }
+}
