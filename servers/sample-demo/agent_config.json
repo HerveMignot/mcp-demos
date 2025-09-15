@@ -1,8 +1,8 @@
 {
   "mcp_plugin": {
     "name": "SampleDemo",
-    "command": "uv",
-    "args": ["run", "--with", "mcp", "mcp", "run", "..\\servers\\sample-demo\\server.py"]
+    "command": "fastmcp",
+    "args": ["run", "..\\servers\\sample-demo\\server.py"]
   },
   "chat_agent": {
     "name": "SampleAgent",

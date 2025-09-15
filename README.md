@@ -14,7 +14,7 @@ A simple MCP server with a single `hello` tool.
 
 ```bash
 cd servers/sample-demo
-mcp dev server.py
+fastmcp run server.py
 ```
 
 ### Spare Parts Retailer
@@ -25,10 +25,21 @@ A more complex MCP server that simulates a spare parts retailer. It has tools to
 
 ```bash
 cd servers/spare-parts-retailer
-mcp dev server.py
+fastmcp run server.py
 ```
 
-Note: the server will be started to be used with the debugger webapp.
+### Debugging with MCP Inspector
+
+FastMPC comes with a MCP Inspector tool: a webapp allowing to test the MCP Server.
+
+Follow instructions provided to use this web application (use Connect button to discuss with the MCP Server).
+
+```bash
+cd servers/spare-parts-retailer
+fastmcp dev server.py
+```
+PS: make sure to use `server.py` and not `.\\server.py` on Windows.
+
 
 ## Testing with the Semantic Kernel Chat Client
 
@@ -55,8 +66,8 @@ The chat client requires a JSON configuration file to set up the MCP plugin and 
 {
   "mcp_plugin": {
     "name": "SparePartsRetailer",
-    "command": "uv",
-    "args": ["run", "--with", "mcp", "mcp", "run", "..\servers\spare-parts-retailer\server.py"]
+    "command": "fastmcp",
+    "args": ["run", "..\\servers\\spare-parts-retailer\\server.py"]
   },
   "chat_agent": {
     "name": "CatalogAgent",

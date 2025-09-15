@@ -1,4 +1,4 @@
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
 from catalog import SPARE_PARTS_CATALOG
 
 mcp = FastMCP("Automotive Spare Parts Retailer")
@@ -56,5 +56,6 @@ def run():
     """Runs the MCP server."""
     mcp.run()
 
+
 if __name__ == "__main__":
-    run()
+    mcp.run()
