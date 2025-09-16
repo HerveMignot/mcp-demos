@@ -9,7 +9,7 @@ from semantic_kernel.functions import KernelArguments
 from semantic_kernel.connectors.ai.open_ai.services.azure_chat_completion import AzureChatCompletion
 from semantic_kernel.connectors.ai.open_ai.prompt_execution_settings.azure_chat_prompt_execution_settings import AzureChatPromptExecutionSettings
 from semantic_kernel.agents import ChatCompletionAgent
-from semantic_kernel.connectors.mcp import MCPStdioPlugin
+from semantic_kernel.connectors.mcp import MCPStdioPlugin, MCPStreamableHttpPlugin
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -18,7 +18,7 @@ load_dotenv()
 
 # --- 0) Parse command-line arguments and load configuration ---
 parser = argparse.ArgumentParser()
-parser.add_argument('--config', default='agent_config.json', help='Path to the configuration file.')
+parser.add_argument('--config', default='tools/agent_config_stdio.json', help='Path to the configuration file.')
 cli_args = parser.parse_args()
 
 with open(cli_args.config, 'r') as config_file:
@@ -40,13 +40,26 @@ kernel.add_service(
 )
 
 async def main():
-    # --- 2) Create an MCP client---
+    # --- 2) Create an MCP client plugin ---
+    plugin_type = mcp_plugin_config.get('type', 'stdio')
 
-    async with MCPStdioPlugin(
-        name=mcp_plugin_config['name'],
-        command=mcp_plugin_config['command'],
-        args=mcp_plugin_config['args'],
-    ) as mcp_plugin:
+    if plugin_type == 'stdio':
+        plugin = MCPStdioPlugin(
+            name=mcp_plugin_config['name'],
+            command=mcp_plugin_config['command'],
+            args=mcp_plugin_config['args']
+        )
+    elif plugin_type == 'http':
+        plugin = MCPStreamableHttpPlugin(
+            name=mcp_plugin_config['name'],
+            url=mcp_plugin_config['url']
+        )
+    else:
+        raise ValueError(f"Unsupported plugin type: {plugin_type}")
+
+    async with plugin as mcp_plugin:
+        if plugin_type == 'http':
+            await mcp_plugin.connect()
 
         # NOTE: In Python SK, MCP plugins are consumed directly by agents or kernels.
         # You usually don't need to manually ‘convert’ tools; the plugin exposes tools to the agent.
@@ -70,6 +83,8 @@ async def main():
         while True:
             question = input("> ").strip()
             if question.lower() in ("quit", "exit"):
+                if plugin_type == 'http':
+                    await mcp_plugin.close()
                 print("Exiting.")
                 break
 

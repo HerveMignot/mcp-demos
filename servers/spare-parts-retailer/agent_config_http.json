@@ -1,0 +1,11 @@
+{
+  "mcp_plugin": {
+    "type": "http",
+    "name": "SparePartsRetailer",
+    "url": "http://localhost:8000/mcp"
+  },
+  "chat_agent": {
+    "name": "CatalogAgent",
+    "instructions": "Answer questions about Spare Part Availability."
+  }
+}

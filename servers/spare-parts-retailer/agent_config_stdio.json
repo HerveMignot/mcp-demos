@@ -1,0 +1,12 @@
+{
+  "mcp_plugin": {
+    "type": "stdio",
+    "name": "SparePartsRetailer",
+    "command": "fastmcp",
+    "args": ["run", "..\\servers\\spare-parts-retailer\\server.py"]
+  },
+  "chat_agent": {
+    "name": "CatalogAgent",
+    "instructions": "Answer questions about Spare Part Availability."
+  }
+}

@@ -43,9 +43,9 @@ PS: make sure to use `server.py` and not `.\\server.py` on Windows.
 
 ## Testing with the Semantic Kernel Chat Client
 
-The `tools` folder contains a chat client (`sk_chat_client.py`) that uses the [Microsoft Semantic Kernel](https://github.com/microsoft/semantic-kernel) to interact with the MCP servers.
+The `tools` folder contains a chat client (`sk_chat_client.py`) that uses the [Microsoft Semantic Kernel](https://github.com/microsoft/semantic-kernel) to interact with MCP servers.
 
-The client is configured via a JSON file passed as a command-line argument.
+The client is configured via a JSON file passed as a command-line argument, and it can connect to both local (`stdio`) and remote (`http`) MCP servers.
 
 ### Prerequisites
 
@@ -60,35 +60,51 @@ AZURE_OPENAI_API_VERSION="your_api_version"
 
 ### Configuration
 
-The chat client requires a JSON configuration file to set up the MCP plugin and the chat agent. Here is an example `agent_config.json` file:
+The chat client uses a JSON configuration file to set up the MCP plugin and the chat agent. The `type` field in the `mcp_plugin` section determines whether to connect to a local server (`stdio`) or a remote one (`http`).
 
-```json
-{
-  "mcp_plugin": {
-    "name": "SparePartsRetailer",
-    "command": "fastmcp",
-    "args": ["run", "..\\servers\\spare-parts-retailer\\server.py"]
-  },
-  "chat_agent": {
-    "name": "CatalogAgent",
-    "instructions": "Answer questions about Spare Part Availability."
-  }
-}
-```
+Example configuration files are provided in the `tools` directory:
+
+*   **`agent_config_stdio.json`**: Connects to a local server as a subprocess.
+    ```json
+    {
+      "mcp_plugin": {
+        "type": "stdio",
+        "name": "SparePartsRetailer",
+        "command": "fastmcp",
+        "args": ["run", "servers/spare-parts-retailer/server.py"]
+      },
+      "chat_agent": {
+        "name": "CatalogAgent",
+        "instructions": "Answer questions about Spare Part Availability."
+      }
+    }
+    ```
+
+*   **`agent_config_http.json`**: Connects to a remote server over HTTP.
+    ```json
+    {
+      "mcp_plugin": {
+        "type": "http",
+        "name": "RemoteServer",
+        "url": "http://localhost:8000/mcp"
+      },
+      "chat_agent": {
+        "name": "RemoteAgent",
+        "instructions": "Interact with the remote server."
+      }
+    }
+    ```
 
 ### Running the Client
 
-To run the chat client, execute the following command from the root of the repository, passing the path to your configuration file:
+To run the chat client, execute the following command from the root of the repository, passing the path to your desired configuration file.
 
+**To connect to a local server (stdio):**
 ```bash
-cd tools
-python ./sk_chat_client.py --config ../servers/<your-server>/agent_config.json
+python tools/sk_chat_client.py --config tools/agent_config_stdio.json
 ```
 
-The client will start the MCP server specified in the configuration file in the background and you will be prompted to ask questions to the chat agent.
-
-**Remark**: Make sure to start the chat client from a directory such that any path in the agent configuration json is valid.
-In the example above, the path to the main server is correct if configuration file is read from the tools directory.
+**To connect to a remote server (http):**
 ```bash
-python .\sk_chat_client.py --config ..\servers\spare-parts-retailer\agent_config.json
-```` 
+python tools/sk_chat_client.py --config tools/agent_config_http.json
+``` 

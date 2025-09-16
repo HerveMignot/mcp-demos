@@ -1,5 +1,6 @@
 {
   "mcp_plugin": {
+    "type": "stdio",
     "name": "SampleDemo",
     "command": "fastmcp",
     "args": ["run", "..\\servers\\sample-demo\\server.py"]
