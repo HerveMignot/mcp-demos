@@ -1,3 +1,9 @@
+# Test files with sensitive information.
+test-*.yaml
+test-*.yml
+test-*.json
+test-*.ini
+
 # Environments
 venv/
 .venv/
